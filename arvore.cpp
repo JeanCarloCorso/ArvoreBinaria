@@ -53,7 +53,7 @@ void apaga(){
 
 void pega(){
 	FILE *arqPEGA;
-	arqPEGA = fopen("pega.txt", "r");
+	arqPEGA = fopen("pre-ordem.txt", "r");
 	if (arqPEGA == NULL){
 		printf("ERROR 404 FILE NOT FOUND");
 	}
