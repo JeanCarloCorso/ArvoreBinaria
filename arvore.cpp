@@ -379,25 +379,44 @@ int main()
 						// galho com dois filhos
 
 						else if (test == 111){
-							arvore *temporaria = posicaoAtual;
+                            arvore *temporaria = posicaoAtual;
+                            arvore *ajuda = posicaoAtual;
 							temporaria = temporaria->direita;
+                            int prof = 0;
 							while (temporaria->esquerda != NULL){
 								temporaria = temporaria->esquerda;
+                                prof++;
 							}
-							posicaoAtual->valor = temporaria->valor;
-							arvore *ajuda = temporaria;
-							if (temporaria->direita == NULL){
-								ajuda = ajuda->ant;
-								ajuda->esquerda = NULL;
-							}
-							else
-							{
-								ajuda = ajuda->ant;
-								ajuda->esquerda = ajuda->esquerda->direita;
-								ajuda = ajuda->esquerda;
-								ajuda->ant = ajuda->ant->ant;
-							}
-							free(temporaria);
+
+                            if(prof > 0){//condição normal
+                                if(temporaria->direita != NULL){ //se não for uma folha
+                                    ajuda = temporaria->direita;
+                                    ajuda->ant->ant->esquerda = ajuda;
+                                }else{ // se for uma folha -------não funcional-------
+                                    temporaria->ant->esquerda = NULL;
+                                }
+                                temporaria->direita = posicaoAtual->direita;
+                                temporaria->esquerda = posicaoAtual->esquerda;
+                                temporaria->ant = posicaoAtual->ant;
+                                
+                                if(posicaoAtual == primeiro){ // se for o primeiro da arvore
+                                    primeiro = temporaria;
+                                }
+                                ajuda = posicaoAtual->direita;
+                                ajuda->ant = temporaria;
+
+                                ajuda = posicaoAtual->esquerda;
+                                ajuda->ant = temporaria;
+                            }else{//um a direita e nada a esquerda da direita
+                                temporaria->esquerda = posicaoAtual->esquerda;
+                                temporaria->ant = posicaoAtual->ant;
+                                posicaoAtual->esquerda->ant = temporaria;
+                                if(posicaoAtual != primeiro){
+                                    posicaoAtual->ant->direita = temporaria;
+                                }
+                            }
+                            free(posicaoAtual);
+                            posicaoAtual = temporaria;
 						}
 					}
 					test = 0;
