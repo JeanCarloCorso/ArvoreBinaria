@@ -136,7 +136,7 @@ int main()
 						primeiro = aux;
 						posicaoAtual = aux;
 					}
-				repete:
+				//repete:
 					printf("");
 				}
 				system("cls");
@@ -235,7 +235,7 @@ int main()
 			}
 			system("cls");
 			if (testarq == true){
-				goto repete;
+				//goto repete;
 			}
 			if (teste == true){
 				printf("\n\n\n\nValor (%d) salvo na arvore!!!\n\n", atual->valor);
